@@ -60,7 +60,10 @@ set clipboard=unnamedplus    " use system clipboard
 set number                   " use line numbers
 
 set mouse=a                  " mouse wheel, see :help mouse
-set ttymouse=xterm2
+" xterm2 breaks the wheel on terminals sending SGR mouse codes, sgr decodes both
+if exists('+ttymouse') && has('mouse_sgr')
+  set ttymouse=sgr
+endif
 
 set laststatus=2             " Always show Powerline
 set backspace=indent,eol,start " backspace fix - http://vim.wikia.com/wiki/Backspace_and_delete_problems
